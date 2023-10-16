@@ -1,0 +1,24 @@
+Option1:: When doing from individual sides (This feature is not available and would need to be modified to be executed only on hub)
+
+Step1: Stratos svc account get the IAM permission compute.vpnGateways.use to MGMT hst project
+Step2: Create the VPN gateway and tunnels and generate the shared IKEV2 and MD5 Keys and configure the BGP sessions
+Step3: CNE svc account take IAM permission compute.vpnGateways.use on stratos hub project
+Step4: Create the gateway and tunnels and input the IKEv2 keys and MD5 keys from step 2 and configure the BGP sessions
+
+Option2: Execute from Stratos side
+Step1: Stratos SVC account take roles/compute.networkAdmin permission on CNE MGMT hub
+Step2: Create GW and tunnels on their side and then configure it on the MGMT side
+
+Option3: Execute from CNE MGMT hub side
+Step1: CNE MGMT SVC account take roles/compute.networkAdmin permission on Stratos hub project
+Step2: Create GW and tunnels on their side and then configure it on the stratos side
+
+Option4: Create classic VPN on either side (No need of svc account permissions)
+Step1: create VG and external IP on CNE MGMT
+Step2: create VG and external IP on Stratos and share the external IP to CNE once created
+Step3: Create the tunnels with remote peer IP from step 2 and generate the IKEV2 with route based routing (dynamic not supported)
+Step4: Share the IKEV2 with Stratos and create the tunnels on stratos end
+
+Option5: Create VPC peering (This is not a transitive connection)
+Step1: Create peering connection from CNE MGMT with stratos project ID and VPC network
+Step2: Create peering connection from CNE MGMT with CNE details
